@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="js/react.min.js"></script>
+    <script src="js/react-dom.min.js"></script>
+    <script src="js/babel.min.js"></script>
+    <script src="js/remarkable.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+</body>
+<script type="text/babel">
+    class Mark extends React.Component{
+        constructor(){
+            super();
+            this.handelChange=this.handelChange.bind(this);
+            this.state={value:"写点*东西*吧！"};
+        }
+        handelChange(){
+            this.setState({value:this.refs.textarea.value});
+        }
+        getRawMarkup(){
+            var md = new Remarkable();
+            return {__html:md.render(this.state.value)};
+        }
+        render(){
+            return(
+                    <div className="Mark">
+                    <h3>Input</h3>
+                    <textarea
+                      onChange={this.handelChange}
+                      ref="textarea"
+                       defaultValue={this.state.value}/>
+                    <h3>Output</h3>
+                    <div className="content"
+                      dangerouslySetInnerHTML={this.getRawMarkup()}
+                     />
+
+                    </div>
+        );
+        }
+    }
+    ReactDOM.render(<Mark/>,document.getElementById("root"));
+</script>
+</html>

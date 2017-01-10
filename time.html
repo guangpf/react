@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="js/react.min.js"></script>
+    <script src="js/react-dom.min.js"></script>
+    <script src="js/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+</body>
+<script type="text/babel">
+    class Time extends React.Component{
+        constructor(){
+            super();
+            this.state={time:0};
+        }
+        componentWillMount(){
+            console.log("即将")
+        }
+        render(){
+            return<div>time:{this.state.time}</div>
+        }
+        componentDidMount(){
+            var num=0;
+            setInterval(()=>{
+                num++;
+                this.setState({time:num})
+            },1000);
+        }
+
+    }
+    ReactDOM.render(<Time/>,document.getElementById("root"));
+</script>
+</html>
